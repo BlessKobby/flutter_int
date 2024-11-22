@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // For Timer
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,72 +12,128 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   // ignore: unused_field
   String _username = '';
+  bool _isLoading = false; // For button loading state
+  bool? _isLoginSuccessful; // For login success or failure
 
   void _login() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      // Show SplashScreen programmatically
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SplashScreen(
-            onSplashEnd: () {
-              // Navigate to HomeScreen after SplashScreen
-              Navigator.pushReplacementNamed(context, '/home');
-            },
-          ),
-        ),
-      );
+      setState(() {
+        _isLoading = true; // Show loading state
+      });
+
+      // Simulate login process
+      Future.delayed(const Duration(seconds: 2), () {
+        setState(() {
+          _isLoading = false;
+          _isLoginSuccessful = true; // Simulate successful login
+        });
+
+        if (_isLoginSuccessful == true) {
+          // Navigate directly to the HomeScreen after login
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacementNamed(context, '/splash');
+        }
+      });
+    } else {
+      setState(() {
+        _isLoginSuccessful = false; // Simulate failed login
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Username'),
-                validator: (value) =>
-                    value!.isEmpty ? 'Please enter your username' : null,
-                onSaved: (value) => _username = value ?? '',
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _login,
-                child: Text('Login'),
-              ),
-            ],
-          ),
-        ),
+      appBar: AppBar(
+        title: Center(child: Text('Login')),
+        backgroundColor: Colors.blueGrey,
       ),
-    );
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  final VoidCallback onSplashEnd;
-
-  const SplashScreen({required this.onSplashEnd, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // Show splash for 3 seconds before calling onSplashEnd
-    Timer(Duration(seconds: 3), onSplashEnd);
-
-    return Scaffold(
-      body: Center(
-        child: Text(
-          'Loading...',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
+      body: Stack(
+        children: [
+          // Background watermark
+          Opacity(
+            opacity: 0.1,
+            child: Center(
+              child: Text(
+                '💲',
+                style: TextStyle(
+                  fontSize: 200,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Welcome to CoinSwipe',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      prefixIcon: Icon(Icons.person, color: Colors.blueGrey),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) =>
+                        value!.isEmpty ? 'Please enter your username' : null,
+                    onSaved: (value) => _username = value ?? '',
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _isLoading ? null : _login,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _isLoginSuccessful == null
+                          ? Colors.blue
+                          : (_isLoginSuccessful == true
+                              ? Colors.green
+                              : Colors.red),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 14, horizontal: 32),
+                    ),
+                    child: _isLoading
+                        ? CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (_isLoginSuccessful == true) ...[
+                                Icon(Icons.check, color: Colors.white),
+                                SizedBox(width: 8),
+                                Text('Success'),
+                              ] else if (_isLoginSuccessful == false) ...[
+                                Icon(Icons.close, color: Colors.white),
+                                SizedBox(width: 8),
+                                Text('Failed'),
+                              ] else
+                                Text('Login'),
+                            ],
+                          ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

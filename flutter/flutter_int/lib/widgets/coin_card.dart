@@ -28,15 +28,25 @@ class _CoinCardState extends State<CoinCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      color: Colors.white,
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: _coinData == null
-            ? CircularProgressIndicator()
+            ? Center(child: CircularProgressIndicator())
             : Column(
                 children: _coinData!.entries.map((entry) {
-                  return Text(
-                    '${entry.key}: ${entry.value['rate']}',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      '${entry.key}: ${entry.value['rate']}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[800],
+                      ),
+                    ),
                   );
                 }).toList(),
               ),
