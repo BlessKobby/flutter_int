@@ -87,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Text(
                     "\$",
                     style: TextStyle(
-                      fontSize: 150,
+                      fontSize: 250,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
