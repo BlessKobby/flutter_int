@@ -77,7 +77,7 @@ class _ImageSwiperState extends State<ImageSwiper> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: Colors.black,
             ),
           ),
         ),

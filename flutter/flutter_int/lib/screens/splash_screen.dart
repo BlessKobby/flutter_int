@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
     // Set up the animation controller and animation
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5), // Bounce duration
+      duration: const Duration(seconds: 7), // Bounce duration
     )..repeat(reverse: true); // Loop the animation back and forth
 
     _animation = Tween<Offset>(
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     // Timer to navigate to the HomeScreen
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 7), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -69,25 +69,25 @@ class _SplashScreenState extends State<SplashScreen>
           // Foreground content
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 // Title
                 Text(
-                  "Welcome to CoinSwipe",
+                  "CoinSwipe!",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 // Bouncing dollar sign
                 SlideTransition(
                   position: _animation,
                   child: Text(
                     "\$",
                     style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 150,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
@@ -96,8 +96,11 @@ class _SplashScreenState extends State<SplashScreen>
                 SizedBox(height: 20),
                 // Subtitle text
                 Text(
-                  "Let's see some coins and their prices.",
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  "Cryptocurrency || Prices",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ],

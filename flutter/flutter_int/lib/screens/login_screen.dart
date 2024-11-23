@@ -47,14 +47,21 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Login')),
+        title: Center(
+            child: Text(
+          'CoinSwipe',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        )),
         backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
         children: [
           // Background watermark
           Opacity(
-            opacity: 0.1,
+            opacity: 0.2,
             child: Center(
               child: Text(
                 '💲',
@@ -67,14 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(20.0),
             child: Form(
               key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    'Welcome to CoinSwipe',
+                    'Hi!',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -98,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: _isLoading ? null : _login,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _isLoginSuccessful == null
-                          ? Colors.blue
+                          ? Colors.blueGrey
                           : (_isLoginSuccessful == true
                               ? Colors.green
                               : Colors.red),
@@ -125,7 +132,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SizedBox(width: 8),
                                 Text('Failed'),
                               ] else
-                                Text('Login'),
+                                Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
                             ],
                           ),
                   ),

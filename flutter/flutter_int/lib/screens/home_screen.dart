@@ -16,7 +16,9 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Home',
-          style: TextStyle(color: Colors.black), // Black home inscription
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold), // Black home inscription
         ),
         centerTitle: true,
         backgroundColor: Colors.blueGrey, // Blue-grey background for the header
@@ -74,10 +76,11 @@ class HomeScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    SizedBox(height: 50),
                     CoinCard(), // Coin Card Widget
-                    SizedBox(height: 20),
+                    SizedBox(height: 90), // Manually specify spacing here
                     ImageSwiper(), // Image Swiper Widget
                   ],
                 ),
