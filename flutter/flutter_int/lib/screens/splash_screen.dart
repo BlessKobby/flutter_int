@@ -87,13 +87,13 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Text(
                     "\$",
                     style: TextStyle(
-                      fontSize: 250,
+                      fontSize: 150,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 // Subtitle text
                 Text(
                   "Cryptocurrency || Prices",
